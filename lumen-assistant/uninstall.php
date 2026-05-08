@@ -12,10 +12,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 // Custom plugin tables are intentionally removed during uninstall.
 // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 
-/**
- * Remove plugin data.
- */
-function lumen_assistant_uninstall_cleanup() {
+( function () {
 	global $wpdb;
 
 	$tables = array(
@@ -45,6 +42,4 @@ function lumen_assistant_uninstall_cleanup() {
 			}
 		}
 	}
-}
-
-lumen_assistant_uninstall_cleanup();
+} )();
