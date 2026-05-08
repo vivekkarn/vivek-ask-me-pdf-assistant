@@ -324,14 +324,21 @@ class Admin_Page {
 	private function documents() {
 		global $wpdb;
 
-		return $wpdb->get_results( 'SELECT * FROM ' . Database::table( 'documents' ) . ' ORDER BY created_at DESC', ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$documents_table = Database::table( 'documents' );
+
+		return $wpdb->get_results(
+			$wpdb->prepare( 'SELECT * FROM %i ORDER BY created_at DESC', $documents_table ),
+			ARRAY_A
+		);
 	}
 
 	/**
 	 * Render admin notice.
 	 */
 	private function notice() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$status  = sanitize_key( $_GET['ask_me_ai_status'] ?? '' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$message = sanitize_text_field( wp_unslash( $_GET['ask_me_ai_message'] ?? '' ) );
 
 		if ( empty( $status ) ) {

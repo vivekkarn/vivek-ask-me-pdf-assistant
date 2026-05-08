@@ -119,13 +119,13 @@ class Chat_Service {
 	private function log_chat( $session_id, $question, $answer, $sources ) {
 		global $wpdb;
 
-		$ip = $_SERVER['REMOTE_ADDR'] ?? ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 
 		$wpdb->insert(
 			Database::table( 'chat_logs' ),
 			array(
 				'session_id' => sanitize_text_field( $session_id ),
-				'ip_hash'    => hash( 'sha256', sanitize_text_field( wp_unslash( $ip ) ) . wp_salt( 'nonce' ) ),
+				'ip_hash'    => hash( 'sha256', $ip . wp_salt( 'nonce' ) ),
 				'question'   => sanitize_textarea_field( $question ),
 				'answer'     => wp_kses_post( $answer ),
 				'sources'    => wp_json_encode( $sources ),

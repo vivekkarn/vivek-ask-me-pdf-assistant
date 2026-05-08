@@ -30,14 +30,20 @@ class Retriever {
 			return $query_vector;
 		}
 
-		$model = Settings::get_value( 'embedding_model', '' );
+		$model            = Settings::get_value( 'embedding_model', '' );
+		$embeddings_table = Database::table( 'embeddings' );
+		$chunks_table     = Database::table( 'chunks' );
+		$documents_table  = Database::table( 'documents' );
 		$rows  = $wpdb->get_results(
 			$wpdb->prepare(
 				'SELECT c.id AS chunk_id, c.chunk_text, c.page_number, d.filename, e.vector
-				FROM ' . Database::table( 'embeddings' ) . ' e
-				INNER JOIN ' . Database::table( 'chunks' ) . ' c ON c.id = e.chunk_id
-				INNER JOIN ' . Database::table( 'documents' ) . ' d ON d.id = c.document_id
+				FROM %i e
+				INNER JOIN %i c ON c.id = e.chunk_id
+				INNER JOIN %i d ON d.id = c.document_id
 				WHERE e.model = %s AND d.status = %s',
+				$embeddings_table,
+				$chunks_table,
+				$documents_table,
 				$model,
 				'ready'
 			),

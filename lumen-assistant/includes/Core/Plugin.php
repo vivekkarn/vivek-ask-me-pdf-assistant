@@ -40,8 +40,6 @@ class Plugin {
 	 * Register hooks.
 	 */
 	public function init() {
-		load_plugin_textdomain( 'lumen-assistant', false, dirname( plugin_basename( ASK_ME_AI_FILE ) ) . '/languages' );
-
 		Settings::ensure_defaults();
 
 		( new Admin_Page() )->init();

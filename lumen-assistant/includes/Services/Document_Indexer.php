@@ -122,8 +122,9 @@ class Document_Indexer {
 	public function index_document( $document_id ) {
 		global $wpdb;
 
+		$documents_table = Database::table( 'documents' );
 		$document = $wpdb->get_row(
-			$wpdb->prepare( 'SELECT * FROM ' . Database::table( 'documents' ) . ' WHERE id = %d', $document_id ),
+			$wpdb->prepare( 'SELECT * FROM %i WHERE id = %d', $documents_table, $document_id ),
 			ARRAY_A
 		);
 
@@ -214,8 +215,9 @@ class Document_Indexer {
 	public function delete_document( $document_id ) {
 		global $wpdb;
 
+		$documents_table = Database::table( 'documents' );
 		$document = $wpdb->get_row(
-			$wpdb->prepare( 'SELECT * FROM ' . Database::table( 'documents' ) . ' WHERE id = %d', $document_id ),
+			$wpdb->prepare( 'SELECT * FROM %i WHERE id = %d', $documents_table, $document_id ),
 			ARRAY_A
 		);
 
@@ -224,7 +226,7 @@ class Document_Indexer {
 		}
 
 		$this->delete_document_chunks( $document_id );
-		$wpdb->delete( Database::table( 'documents' ), array( 'id' => $document_id ), array( '%d' ) );
+		$wpdb->delete( $documents_table, array( 'id' => $document_id ), array( '%d' ) );
 
 		if ( ! empty( $document['file_path'] ) && file_exists( $document['file_path'] ) ) {
 			wp_delete_file( $document['file_path'] );
@@ -241,16 +243,20 @@ class Document_Indexer {
 	private function delete_document_chunks( $document_id ) {
 		global $wpdb;
 
+		$chunks_table     = Database::table( 'chunks' );
+		$embeddings_table = Database::table( 'embeddings' );
 		$chunk_ids = $wpdb->get_col(
-			$wpdb->prepare( 'SELECT id FROM ' . Database::table( 'chunks' ) . ' WHERE document_id = %d', $document_id )
+			$wpdb->prepare( 'SELECT id FROM %i WHERE document_id = %d', $chunks_table, $document_id )
 		);
 
 		if ( ! empty( $chunk_ids ) ) {
-			$ids = implode( ',', array_map( 'absint', $chunk_ids ) );
-			$wpdb->query( "DELETE FROM " . Database::table( 'embeddings' ) . " WHERE chunk_id IN ({$ids})" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$chunk_ids    = array_map( 'absint', $chunk_ids );
+			foreach ( $chunk_ids as $chunk_id ) {
+				$wpdb->delete( $embeddings_table, array( 'chunk_id' => $chunk_id ), array( '%d' ) );
+			}
 		}
 
-		$wpdb->delete( Database::table( 'chunks' ), array( 'document_id' => $document_id ), array( '%d' ) );
+		$wpdb->delete( $chunks_table, array( 'document_id' => $document_id ), array( '%d' ) );
 	}
 
 	/**

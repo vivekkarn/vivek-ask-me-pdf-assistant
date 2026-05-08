@@ -19,7 +19,7 @@ class Rate_Limiter {
 	 */
 	public static function check() {
 		$settings = Settings::get();
-		$ip       = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? 'unknown' ) );
+		$ip       = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : 'unknown';
 		$key      = 'ask_me_ai_rate_' . md5( $ip . wp_salt( 'nonce' ) );
 		$count    = (int) get_transient( $key );
 		$limit    = absint( $settings['rate_limit_count'] );
