@@ -26,28 +26,51 @@ class Document_Indexer {
 			return new \WP_Error( 'missing_file', __( 'No PDF file was uploaded.', 'lumen-assistant' ) );
 		}
 
+		if ( ! function_exists( 'wp_handle_upload' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
 		$type = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'] );
 		if ( 'pdf' !== ( $type['ext'] ?? '' ) || 'application/pdf' !== ( $type['type'] ?? '' ) ) {
 			return new \WP_Error( 'invalid_file_type', __( 'Please upload a valid PDF file.', 'lumen-assistant' ) );
 		}
 
-		$upload_dir = wp_upload_dir();
-		$target_dir = trailingslashit( $upload_dir['basedir'] ) . 'lumen-assistant-docs';
-
-		if ( ! wp_mkdir_p( $target_dir ) ) {
-			return new \WP_Error( 'upload_dir_failed', __( 'Could not create the document upload directory.', 'lumen-assistant' ) );
-		}
-
-		$this->protect_upload_dir( $target_dir );
-
 		$filename = sanitize_file_name( $file['name'] );
-		$target   = trailingslashit( $target_dir ) . wp_unique_filename( $target_dir, $filename );
+		add_filter( 'upload_dir', array( $this, 'upload_dir' ) );
+		$upload = wp_handle_upload(
+			$file,
+			array(
+				'test_form' => false,
+				'mimes'     => array(
+					'pdf' => 'application/pdf',
+				),
+			)
+		);
+		remove_filter( 'upload_dir', array( $this, 'upload_dir' ) );
 
-		if ( ! move_uploaded_file( $file['tmp_name'], $target ) ) {
-			return new \WP_Error( 'upload_failed', __( 'Could not save the uploaded PDF.', 'lumen-assistant' ) );
+		if ( ! empty( $upload['error'] ) || empty( $upload['file'] ) ) {
+			return new \WP_Error( 'upload_failed', sanitize_text_field( $upload['error'] ?? __( 'Could not save the uploaded PDF.', 'lumen-assistant' ) ) );
 		}
 
-		return $this->create_document_and_index( $filename, $target );
+		$this->protect_upload_dir( dirname( $upload['file'] ) );
+
+		return $this->create_document_and_index( $filename, $upload['file'] );
+	}
+
+	/**
+	 * Route plugin PDFs into a dedicated upload folder.
+	 *
+	 * @param array $dirs WordPress upload directory data.
+	 * @return array
+	 */
+	public function upload_dir( $dirs ) {
+		$subdir = '/lumen-assistant-docs';
+
+		$dirs['subdir'] = $subdir;
+		$dirs['path']   = $dirs['basedir'] . $subdir;
+		$dirs['url']    = $dirs['baseurl'] . $subdir;
+
+		return $dirs;
 	}
 
 	/**
