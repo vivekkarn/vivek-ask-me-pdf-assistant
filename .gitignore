@@ -4,4 +4,4 @@ Thumbs.db
 *.zip
 node_modules/
 vendor/
-!ask-me-ai/vendor/index.php
+!lumen-assistant/vendor/index.php

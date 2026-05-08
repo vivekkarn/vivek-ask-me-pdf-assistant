@@ -11,7 +11,7 @@
  * Donate link: https://buymemomo.com/vivek
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: ask-me-ai
+ * Text Domain: lumen-assistant
  *
  * @package AskMeAI
  */
@@ -46,13 +46,13 @@ add_action(
 add_filter(
 	'plugin_action_links_' . plugin_basename( __FILE__ ),
 	static function ( $links ) {
-		$settings_url = admin_url( 'admin.php?page=ask-me-ai' );
+		$settings_url = admin_url( 'admin.php?page=lumen-assistant' );
 		$donate_url   = 'https://buymemomo.com/vivek';
 
 		array_unshift(
 			$links,
-			'<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'ask-me-ai' ) . '</a>',
-			'<a href="' . esc_url( $donate_url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Donate', 'ask-me-ai' ) . '</a>'
+			'<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'lumen-assistant' ) . '</a>',
+			'<a href="' . esc_url( $donate_url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Donate', 'lumen-assistant' ) . '</a>'
 		);
 
 		return $links;

@@ -3,7 +3,7 @@ Contributors: vivekkarn
 Donate link: https://buymemomo.com/vivek
 Tags: assistant, ai, chatbot, pdf, openrouter
 Requires at least: 6.2
-Tested up to: 6.5
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -31,6 +31,18 @@ Features include:
 * Optional shortcode mode with [ask_me_ai_widget].
 
 The plugin is designed to answer only from uploaded documents. If the retrieved document context does not contain the answer, Lumen is instructed to say it does not know based on the available documents.
+
+= Third-party service disclosure =
+
+This plugin connects to OpenRouter only after the site administrator enters an API key and model configuration. OpenRouter is used to generate embeddings for uploaded document chunks and to generate answers from retrieved document context.
+
+Data sent to OpenRouter can include extracted text snippets from uploaded PDFs, visitor questions, configured model names, and normal API request metadata. The OpenRouter API key is stored on the WordPress server and is not exposed to visitors.
+
+OpenRouter service links:
+
+* Website: https://openrouter.ai/
+* Terms: https://openrouter.ai/terms
+* Privacy: https://openrouter.ai/privacy
 
 == Installation ==
 

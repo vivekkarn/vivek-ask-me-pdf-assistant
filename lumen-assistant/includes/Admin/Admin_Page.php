@@ -33,10 +33,10 @@ class Admin_Page {
 	 */
 	public function menu() {
 		add_menu_page(
-			__( 'Lumen Assistant', 'ask-me-ai' ),
-			__( 'Lumen Assistant', 'ask-me-ai' ),
+			__( 'Lumen Assistant', 'lumen-assistant' ),
+			__( 'Lumen Assistant', 'lumen-assistant' ),
 			'manage_options',
-			'ask-me-ai',
+			'lumen-assistant',
 			array( $this, 'render' ),
 			'dashicons-format-chat',
 			58
@@ -49,7 +49,7 @@ class Admin_Page {
 	 * @param string $hook Current admin page hook.
 	 */
 	public function admin_styles( $hook ) {
-		if ( 'toplevel_page_ask-me-ai' !== $hook ) {
+		if ( 'toplevel_page_lumen-assistant' !== $hook ) {
 			return;
 		}
 
@@ -64,7 +64,7 @@ class Admin_Page {
 	 */
 	public function save_settings() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to manage this plugin.', 'ask-me-ai' ) );
+			wp_die( esc_html__( 'You do not have permission to manage this plugin.', 'lumen-assistant' ) );
 		}
 
 		check_admin_referer( 'ask_me_ai_save_settings' );
@@ -77,7 +77,7 @@ class Admin_Page {
 	 */
 	public function upload_pdf() {
 		if ( ! current_user_can( 'upload_files' ) || ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to upload documents.', 'ask-me-ai' ) );
+			wp_die( esc_html__( 'You do not have permission to upload documents.', 'lumen-assistant' ) );
 		}
 
 		check_admin_referer( 'ask_me_ai_upload_pdf' );
@@ -91,7 +91,7 @@ class Admin_Page {
 	 */
 	public function delete_document() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to delete documents.', 'ask-me-ai' ) );
+			wp_die( esc_html__( 'You do not have permission to delete documents.', 'lumen-assistant' ) );
 		}
 
 		$document_id = absint( $_GET['document_id'] ?? 0 );
@@ -106,7 +106,7 @@ class Admin_Page {
 	 */
 	public function rebuild_document() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to rebuild documents.', 'ask-me-ai' ) );
+			wp_die( esc_html__( 'You do not have permission to rebuild documents.', 'lumen-assistant' ) );
 		}
 
 		$document_id = absint( $_GET['document_id'] ?? 0 );
@@ -130,10 +130,10 @@ class Admin_Page {
 		<div class="wrap ask-me-ai-admin">
 			<div class="ask-me-ai-admin__hero">
 				<div>
-					<h1><?php esc_html_e( 'Lumen Assistant', 'ask-me-ai' ); ?></h1>
-					<p><?php esc_html_e( 'A polished document support assistant for WordPress. Upload PDFs, index them locally, and let visitors ask Lumen grounded questions from a floating support widget.', 'ask-me-ai' ); ?></p>
+					<h1><?php esc_html_e( 'Lumen Assistant', 'lumen-assistant' ); ?></h1>
+					<p><?php esc_html_e( 'A polished document support assistant for WordPress. Upload PDFs, index them locally, and let visitors ask Lumen grounded questions from a floating support widget.', 'lumen-assistant' ); ?></p>
 				</div>
-				<a class="ask-me-ai-admin__donate" href="https://buymemomo.com/vivek" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Donate', 'ask-me-ai' ); ?></a>
+				<a class="ask-me-ai-admin__donate" href="https://buymemomo.com/vivek" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Donate', 'lumen-assistant' ); ?></a>
 			</div>
 			<?php $this->notice(); ?>
 
@@ -144,29 +144,29 @@ class Admin_Page {
 						<?php wp_nonce_field( 'ask_me_ai_save_settings' ); ?>
 
 						<div class="postbox">
-							<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'AI Provider', 'ask-me-ai' ); ?></h2>
+							<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'AI Provider', 'lumen-assistant' ); ?></h2>
 							<div class="inside">
 								<table class="form-table" role="presentation">
 									<tr>
-										<th scope="row"><label for="openrouter_api_key"><?php esc_html_e( 'OpenRouter API key', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="openrouter_api_key"><?php esc_html_e( 'OpenRouter API key', 'lumen-assistant' ); ?></label></th>
 										<td>
-											<input class="regular-text" type="password" id="openrouter_api_key" name="ask_me_ai[openrouter_api_key]" value="" placeholder="<?php echo esc_attr( empty( $settings['openrouter_api_key'] ) ? __( 'Enter API key', 'ask-me-ai' ) : __( 'Saved. Enter a new key to replace it.', 'ask-me-ai' ) ); ?>" autocomplete="off">
+											<input class="regular-text" type="password" id="openrouter_api_key" name="ask_me_ai[openrouter_api_key]" value="" placeholder="<?php echo esc_attr( empty( $settings['openrouter_api_key'] ) ? __( 'Enter API key', 'lumen-assistant' ) : __( 'Saved. Enter a new key to replace it.', 'lumen-assistant' ) ); ?>" autocomplete="off">
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="chat_model"><?php esc_html_e( 'Chat model', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="chat_model"><?php esc_html_e( 'Chat model', 'lumen-assistant' ); ?></label></th>
 										<td><input class="regular-text" type="text" id="chat_model" name="ask_me_ai[chat_model]" value="<?php echo esc_attr( $settings['chat_model'] ); ?>"></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="embedding_model"><?php esc_html_e( 'Embedding model', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="embedding_model"><?php esc_html_e( 'Embedding model', 'lumen-assistant' ); ?></label></th>
 										<td><input class="regular-text" type="text" id="embedding_model" name="ask_me_ai[embedding_model]" value="<?php echo esc_attr( $settings['embedding_model'] ); ?>"></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="embedding_endpoint"><?php esc_html_e( 'Embedding endpoint', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="embedding_endpoint"><?php esc_html_e( 'Embedding endpoint', 'lumen-assistant' ); ?></label></th>
 										<td><input class="large-text" type="url" id="embedding_endpoint" name="ask_me_ai[embedding_endpoint]" value="<?php echo esc_attr( $settings['embedding_endpoint'] ); ?>"></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="assistant_instructions"><?php esc_html_e( 'Assistant instructions', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="assistant_instructions"><?php esc_html_e( 'Assistant instructions', 'lumen-assistant' ); ?></label></th>
 										<td><textarea class="large-text" rows="4" id="assistant_instructions" name="ask_me_ai[assistant_instructions]"><?php echo esc_textarea( $settings['assistant_instructions'] ); ?></textarea></td>
 									</tr>
 								</table>
@@ -174,106 +174,106 @@ class Admin_Page {
 						</div>
 
 						<div class="postbox">
-							<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Widget Appearance', 'ask-me-ai' ); ?></h2>
+							<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Widget Appearance', 'lumen-assistant' ); ?></h2>
 							<div class="inside">
 								<table class="form-table" role="presentation">
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Display', 'ask-me-ai' ); ?></th>
+										<th scope="row"><?php esc_html_e( 'Display', 'lumen-assistant' ); ?></th>
 										<td>
-											<label><input type="checkbox" name="ask_me_ai[enabled]" value="1" <?php checked( '1', $settings['enabled'] ); ?>> <?php esc_html_e( 'Enable widget globally', 'ask-me-ai' ); ?></label><br>
-											<label><input type="checkbox" name="ask_me_ai[shortcode_only]" value="1" <?php checked( '1', $settings['shortcode_only'] ); ?>> <?php esc_html_e( 'Only show where shortcode is used', 'ask-me-ai' ); ?></label>
-											<p class="description"><?php esc_html_e( 'Shortcode: [ask_me_ai_widget]', 'ask-me-ai' ); ?></p>
+											<label><input type="checkbox" name="ask_me_ai[enabled]" value="1" <?php checked( '1', $settings['enabled'] ); ?>> <?php esc_html_e( 'Enable widget globally', 'lumen-assistant' ); ?></label><br>
+											<label><input type="checkbox" name="ask_me_ai[shortcode_only]" value="1" <?php checked( '1', $settings['shortcode_only'] ); ?>> <?php esc_html_e( 'Only show where shortcode is used', 'lumen-assistant' ); ?></label>
+											<p class="description"><?php esc_html_e( 'Shortcode: [ask_me_ai_widget]', 'lumen-assistant' ); ?></p>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="assistant_name"><?php esc_html_e( 'Assistant name', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="assistant_name"><?php esc_html_e( 'Assistant name', 'lumen-assistant' ); ?></label></th>
 										<td><input class="regular-text" type="text" id="assistant_name" name="ask_me_ai[assistant_name]" value="<?php echo esc_attr( $settings['assistant_name'] ); ?>"></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="welcome_message"><?php esc_html_e( 'Welcome message', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="welcome_message"><?php esc_html_e( 'Welcome message', 'lumen-assistant' ); ?></label></th>
 										<td><textarea class="large-text" rows="3" id="welcome_message" name="ask_me_ai[welcome_message]"><?php echo esc_textarea( $settings['welcome_message'] ); ?></textarea></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="widget_color"><?php esc_html_e( 'Widget color', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="widget_color"><?php esc_html_e( 'Widget color', 'lumen-assistant' ); ?></label></th>
 										<td><input type="color" id="widget_color" name="ask_me_ai[widget_color]" value="<?php echo esc_attr( $settings['widget_color'] ); ?>"></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="position"><?php esc_html_e( 'Position', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="position"><?php esc_html_e( 'Position', 'lumen-assistant' ); ?></label></th>
 										<td>
 											<select id="position" name="ask_me_ai[position]">
-												<option value="bottom-right" <?php selected( 'bottom-right', $settings['position'] ); ?>><?php esc_html_e( 'Bottom right', 'ask-me-ai' ); ?></option>
-												<option value="bottom-left" <?php selected( 'bottom-left', $settings['position'] ); ?>><?php esc_html_e( 'Bottom left', 'ask-me-ai' ); ?></option>
+												<option value="bottom-right" <?php selected( 'bottom-right', $settings['position'] ); ?>><?php esc_html_e( 'Bottom right', 'lumen-assistant' ); ?></option>
+												<option value="bottom-left" <?php selected( 'bottom-left', $settings['position'] ); ?>><?php esc_html_e( 'Bottom left', 'lumen-assistant' ); ?></option>
 											</select>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="placeholder"><?php esc_html_e( 'Placeholder', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="placeholder"><?php esc_html_e( 'Placeholder', 'lumen-assistant' ); ?></label></th>
 										<td><input class="regular-text" type="text" id="placeholder" name="ask_me_ai[placeholder]" value="<?php echo esc_attr( $settings['placeholder'] ); ?>"></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="suggested_questions"><?php esc_html_e( 'Suggested questions', 'ask-me-ai' ); ?></label></th>
-										<td><textarea class="large-text" rows="5" id="suggested_questions" name="ask_me_ai[suggested_questions]"><?php echo esc_textarea( $settings['suggested_questions'] ); ?></textarea><p class="description"><?php esc_html_e( 'One question per line.', 'ask-me-ai' ); ?></p></td>
+										<th scope="row"><label for="suggested_questions"><?php esc_html_e( 'Suggested questions', 'lumen-assistant' ); ?></label></th>
+										<td><textarea class="large-text" rows="5" id="suggested_questions" name="ask_me_ai[suggested_questions]"><?php echo esc_textarea( $settings['suggested_questions'] ); ?></textarea><p class="description"><?php esc_html_e( 'One question per line.', 'lumen-assistant' ); ?></p></td>
 									</tr>
 									<tr>
-										<th scope="row"><?php esc_html_e( 'Branding', 'ask-me-ai' ); ?></th>
-										<td><label><input type="checkbox" name="ask_me_ai[powered_by]" value="1" <?php checked( '1', $settings['powered_by'] ); ?>> <?php esc_html_e( 'Show Powered by Lumen Assistant', 'ask-me-ai' ); ?></label></td>
+										<th scope="row"><?php esc_html_e( 'Branding', 'lumen-assistant' ); ?></th>
+										<td><label><input type="checkbox" name="ask_me_ai[powered_by]" value="1" <?php checked( '1', $settings['powered_by'] ); ?>> <?php esc_html_e( 'Show Powered by Lumen Assistant', 'lumen-assistant' ); ?></label></td>
 									</tr>
 								</table>
 							</div>
 						</div>
 
 						<div class="postbox">
-							<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Limits', 'ask-me-ai' ); ?></h2>
+							<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Limits', 'lumen-assistant' ); ?></h2>
 							<div class="inside">
 								<table class="form-table" role="presentation">
 									<tr>
-										<th scope="row"><label for="max_context_chunks"><?php esc_html_e( 'Context chunks', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="max_context_chunks"><?php esc_html_e( 'Context chunks', 'lumen-assistant' ); ?></label></th>
 										<td><input type="number" min="1" max="12" id="max_context_chunks" name="ask_me_ai[max_context_chunks]" value="<?php echo esc_attr( $settings['max_context_chunks'] ); ?>"></td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="rate_limit_count"><?php esc_html_e( 'Rate limit', 'ask-me-ai' ); ?></label></th>
+										<th scope="row"><label for="rate_limit_count"><?php esc_html_e( 'Rate limit', 'lumen-assistant' ); ?></label></th>
 										<td>
 											<input type="number" min="1" max="200" id="rate_limit_count" name="ask_me_ai[rate_limit_count]" value="<?php echo esc_attr( $settings['rate_limit_count'] ); ?>">
-											<?php esc_html_e( 'questions per', 'ask-me-ai' ); ?>
+											<?php esc_html_e( 'questions per', 'lumen-assistant' ); ?>
 											<input type="number" min="60" max="3600" name="ask_me_ai[rate_limit_window]" value="<?php echo esc_attr( $settings['rate_limit_window'] ); ?>">
-											<?php esc_html_e( 'seconds per visitor IP.', 'ask-me-ai' ); ?>
+											<?php esc_html_e( 'seconds per visitor IP.', 'lumen-assistant' ); ?>
 										</td>
 									</tr>
 								</table>
 							</div>
 						</div>
 
-						<?php submit_button( __( 'Save Settings', 'ask-me-ai' ) ); ?>
+						<?php submit_button( __( 'Save Settings', 'lumen-assistant' ) ); ?>
 					</form>
 				</div>
 
 				<div>
 					<div class="postbox">
-						<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Upload PDF', 'ask-me-ai' ); ?></h2>
+						<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Upload PDF', 'lumen-assistant' ); ?></h2>
 						<div class="inside">
 							<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
 								<input type="hidden" name="action" value="ask_me_ai_upload_pdf">
 								<?php wp_nonce_field( 'ask_me_ai_upload_pdf' ); ?>
 								<p><input type="file" name="ask_me_ai_pdf" accept="application/pdf" required></p>
-								<?php submit_button( __( 'Upload and Index', 'ask-me-ai' ), 'primary', 'submit', false ); ?>
-								<p class="description"><?php esc_html_e( 'Indexing calls the embedding endpoint once per text chunk, so large files can take time.', 'ask-me-ai' ); ?></p>
+								<?php submit_button( __( 'Upload and Index', 'lumen-assistant' ), 'primary', 'submit', false ); ?>
+								<p class="description"><?php esc_html_e( 'Indexing calls the embedding endpoint once per text chunk, so large files can take time.', 'lumen-assistant' ); ?></p>
 							</form>
 						</div>
 					</div>
 
 					<div class="postbox">
-						<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Documents', 'ask-me-ai' ); ?><span class="ask-me-ai-admin__badge"><?php esc_html_e( 'RAG Library', 'ask-me-ai' ); ?></span></h2>
+						<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Documents', 'lumen-assistant' ); ?><span class="ask-me-ai-admin__badge"><?php esc_html_e( 'RAG Library', 'lumen-assistant' ); ?></span></h2>
 						<div class="inside">
 							<?php if ( empty( $documents ) ) : ?>
-								<p><?php esc_html_e( 'No PDFs uploaded yet.', 'ask-me-ai' ); ?></p>
+								<p><?php esc_html_e( 'No PDFs uploaded yet.', 'lumen-assistant' ); ?></p>
 							<?php else : ?>
 								<table class="widefat striped">
 									<thead>
 										<tr>
-											<th><?php esc_html_e( 'File', 'ask-me-ai' ); ?></th>
-											<th><?php esc_html_e( 'Status', 'ask-me-ai' ); ?></th>
-											<th><?php esc_html_e( 'Chunks', 'ask-me-ai' ); ?></th>
-											<th><?php esc_html_e( 'Actions', 'ask-me-ai' ); ?></th>
+											<th><?php esc_html_e( 'File', 'lumen-assistant' ); ?></th>
+											<th><?php esc_html_e( 'Status', 'lumen-assistant' ); ?></th>
+											<th><?php esc_html_e( 'Chunks', 'lumen-assistant' ); ?></th>
+											<th><?php esc_html_e( 'Actions', 'lumen-assistant' ); ?></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -288,9 +288,9 @@ class Admin_Page {
 												<td><?php echo esc_html( ucfirst( $document['status'] ) ); ?></td>
 												<td><?php echo esc_html( $document['chunk_count'] ); ?></td>
 												<td>
-													<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=ask_me_ai_rebuild_document&document_id=' . absint( $document['id'] ) ), 'ask_me_ai_rebuild_document_' . absint( $document['id'] ) ) ); ?>"><?php esc_html_e( 'Rebuild', 'ask-me-ai' ); ?></a>
+													<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=ask_me_ai_rebuild_document&document_id=' . absint( $document['id'] ) ), 'ask_me_ai_rebuild_document_' . absint( $document['id'] ) ) ); ?>"><?php esc_html_e( 'Rebuild', 'lumen-assistant' ); ?></a>
 													|
-													<a style="color:#b32d2e;" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=ask_me_ai_delete_document&document_id=' . absint( $document['id'] ) ), 'ask_me_ai_delete_document_' . absint( $document['id'] ) ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Delete this document and all of its chunks?', 'ask-me-ai' ) ); ?>');"><?php esc_html_e( 'Delete', 'ask-me-ai' ); ?></a>
+													<a style="color:#b32d2e;" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=ask_me_ai_delete_document&document_id=' . absint( $document['id'] ) ), 'ask_me_ai_delete_document_' . absint( $document['id'] ) ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Delete this document and all of its chunks?', 'lumen-assistant' ) ); ?>');"><?php esc_html_e( 'Delete', 'lumen-assistant' ); ?></a>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -301,12 +301,12 @@ class Admin_Page {
 					</div>
 
 					<div class="postbox">
-						<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Setup Notes', 'ask-me-ai' ); ?></h2>
+						<h2 class="hndle" style="padding:12px 16px;margin:0;"><?php esc_html_e( 'Setup Notes', 'lumen-assistant' ); ?></h2>
 						<div class="inside">
 							<ol>
-								<li><?php esc_html_e( 'Enter an OpenRouter API key and model names.', 'ask-me-ai' ); ?></li>
-								<li><?php esc_html_e( 'Upload one or more PDFs and wait for Ready status.', 'ask-me-ai' ); ?></li>
-								<li><?php esc_html_e( 'Enable the widget globally or place [ask_me_ai_widget] on selected pages.', 'ask-me-ai' ); ?></li>
+								<li><?php esc_html_e( 'Enter an OpenRouter API key and model names.', 'lumen-assistant' ); ?></li>
+								<li><?php esc_html_e( 'Upload one or more PDFs and wait for Ready status.', 'lumen-assistant' ); ?></li>
+								<li><?php esc_html_e( 'Enable the widget globally or place [ask_me_ai_widget] on selected pages.', 'lumen-assistant' ); ?></li>
 							</ol>
 						</div>
 					</div>
@@ -339,14 +339,14 @@ class Admin_Page {
 		}
 
 		$map = array(
-			'settings_saved'   => __( 'Settings saved.', 'ask-me-ai' ),
-			'document_indexed' => __( 'PDF uploaded and indexed.', 'ask-me-ai' ),
-			'document_deleted' => __( 'Document deleted.', 'ask-me-ai' ),
-			'document_rebuilt' => __( 'Document index rebuilt.', 'ask-me-ai' ),
+			'settings_saved'   => __( 'Settings saved.', 'lumen-assistant' ),
+			'document_indexed' => __( 'PDF uploaded and indexed.', 'lumen-assistant' ),
+			'document_deleted' => __( 'Document deleted.', 'lumen-assistant' ),
+			'document_rebuilt' => __( 'Document index rebuilt.', 'lumen-assistant' ),
 		);
 
 		$is_error = false !== strpos( $status, 'failed' );
-		$text     = $message ?: ( $map[ $status ] ?? __( 'Action complete.', 'ask-me-ai' ) );
+		$text     = $message ?: ( $map[ $status ] ?? __( 'Action complete.', 'lumen-assistant' ) );
 		$class    = $is_error ? 'notice notice-error' : 'notice notice-success';
 
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $text ) );
@@ -360,7 +360,7 @@ class Admin_Page {
 	 */
 	private function redirect( $status, $message = '' ) {
 		$args = array(
-			'page'             => 'ask-me-ai',
+			'page'             => 'lumen-assistant',
 			'ask_me_ai_status' => $status,
 		);
 

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Rest_Controller {
-	const NAMESPACE = 'ask-me-ai/v1';
+	const NAMESPACE = 'lumen-assistant/v1';
 
 	/**
 	 * Register hooks.
@@ -77,12 +77,12 @@ class Rest_Controller {
 	public function public_permission() {
 		$settings = Settings::get();
 		if ( '1' !== $settings['enabled'] ) {
-			return new \WP_Error( 'widget_disabled', __( 'The assistant is currently disabled.', 'ask-me-ai' ), array( 'status' => 403 ) );
+			return new \WP_Error( 'widget_disabled', __( 'The assistant is currently disabled.', 'lumen-assistant' ), array( 'status' => 403 ) );
 		}
 
 		$nonce = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_WP_NONCE'] ?? '' ) );
 		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new \WP_Error( 'invalid_nonce', __( 'Security check failed.', 'ask-me-ai' ), array( 'status' => 403 ) );
+			return new \WP_Error( 'invalid_nonce', __( 'Security check failed.', 'lumen-assistant' ), array( 'status' => 403 ) );
 		}
 
 		return Rate_Limiter::check();

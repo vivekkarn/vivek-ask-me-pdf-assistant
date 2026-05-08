@@ -26,7 +26,7 @@ delete_option( 'ask_me_ai_settings' );
 delete_option( 'ask_me_ai_db_version' );
 
 $upload_dir = wp_upload_dir();
-$target_dir = trailingslashit( $upload_dir['basedir'] ) . 'ask-me-ai-docs';
+$target_dir = trailingslashit( $upload_dir['basedir'] ) . 'lumen-assistant-docs';
 
 if ( is_dir( $target_dir ) ) {
 	$files = glob( trailingslashit( $target_dir ) . '*' );

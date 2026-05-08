@@ -23,19 +23,19 @@ class Document_Indexer {
 	 */
 	public function upload_and_index( $file ) {
 		if ( empty( $file['tmp_name'] ) || empty( $file['name'] ) ) {
-			return new \WP_Error( 'missing_file', __( 'No PDF file was uploaded.', 'ask-me-ai' ) );
+			return new \WP_Error( 'missing_file', __( 'No PDF file was uploaded.', 'lumen-assistant' ) );
 		}
 
 		$type = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'] );
 		if ( 'pdf' !== ( $type['ext'] ?? '' ) || 'application/pdf' !== ( $type['type'] ?? '' ) ) {
-			return new \WP_Error( 'invalid_file_type', __( 'Please upload a valid PDF file.', 'ask-me-ai' ) );
+			return new \WP_Error( 'invalid_file_type', __( 'Please upload a valid PDF file.', 'lumen-assistant' ) );
 		}
 
 		$upload_dir = wp_upload_dir();
-		$target_dir = trailingslashit( $upload_dir['basedir'] ) . 'ask-me-ai-docs';
+		$target_dir = trailingslashit( $upload_dir['basedir'] ) . 'lumen-assistant-docs';
 
 		if ( ! wp_mkdir_p( $target_dir ) ) {
-			return new \WP_Error( 'upload_dir_failed', __( 'Could not create the document upload directory.', 'ask-me-ai' ) );
+			return new \WP_Error( 'upload_dir_failed', __( 'Could not create the document upload directory.', 'lumen-assistant' ) );
 		}
 
 		$this->protect_upload_dir( $target_dir );
@@ -44,7 +44,7 @@ class Document_Indexer {
 		$target   = trailingslashit( $target_dir ) . wp_unique_filename( $target_dir, $filename );
 
 		if ( ! move_uploaded_file( $file['tmp_name'], $target ) ) {
-			return new \WP_Error( 'upload_failed', __( 'Could not save the uploaded PDF.', 'ask-me-ai' ) );
+			return new \WP_Error( 'upload_failed', __( 'Could not save the uploaded PDF.', 'lumen-assistant' ) );
 		}
 
 		return $this->create_document_and_index( $filename, $target );
@@ -77,7 +77,7 @@ class Document_Indexer {
 		);
 
 		if ( false === $inserted ) {
-			return new \WP_Error( 'document_insert_failed', __( 'Could not create document record.', 'ask-me-ai' ) );
+			return new \WP_Error( 'document_insert_failed', __( 'Could not create document record.', 'lumen-assistant' ) );
 		}
 
 		$document_id = (int) $wpdb->insert_id;
@@ -105,7 +105,7 @@ class Document_Indexer {
 		);
 
 		if ( ! $document ) {
-			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'ask-me-ai' ) );
+			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'lumen-assistant' ) );
 		}
 
 		$this->set_status( $document_id, 'indexing', '' );
@@ -113,14 +113,14 @@ class Document_Indexer {
 
 		$pages = ( new Pdf_Text_Extractor() )->extract( $document['file_path'] );
 		if ( empty( $pages ) ) {
-			$this->set_status( $document_id, 'failed', __( 'No text could be extracted from this PDF.', 'ask-me-ai' ) );
-			return new \WP_Error( 'no_pdf_text', __( 'No text could be extracted from this PDF.', 'ask-me-ai' ) );
+			$this->set_status( $document_id, 'failed', __( 'No text could be extracted from this PDF.', 'lumen-assistant' ) );
+			return new \WP_Error( 'no_pdf_text', __( 'No text could be extracted from this PDF.', 'lumen-assistant' ) );
 		}
 
 		$chunks = ( new Text_Chunker() )->chunk_pages( $pages );
 		if ( empty( $chunks ) ) {
-			$this->set_status( $document_id, 'failed', __( 'No searchable text chunks were created.', 'ask-me-ai' ) );
-			return new \WP_Error( 'no_chunks', __( 'No searchable text chunks were created.', 'ask-me-ai' ) );
+			$this->set_status( $document_id, 'failed', __( 'No searchable text chunks were created.', 'lumen-assistant' ) );
+			return new \WP_Error( 'no_chunks', __( 'No searchable text chunks were created.', 'lumen-assistant' ) );
 		}
 
 		$client          = new OpenRouter_Client();
@@ -197,7 +197,7 @@ class Document_Indexer {
 		);
 
 		if ( ! $document ) {
-			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'ask-me-ai' ) );
+			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'lumen-assistant' ) );
 		}
 
 		$this->delete_document_chunks( $document_id );

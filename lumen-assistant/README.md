@@ -53,11 +53,11 @@ The visitor experience is intentionally branded as **Ask Lumen**, not as a gener
 
 ## Manual Installation
 
-1. Copy the `ask-me-ai` folder into `wp-content/plugins/`.
+1. Copy the `lumen-assistant` folder into `wp-content/plugins/`.
 2. Activate **Lumen Assistant** from the WordPress Plugins screen.
 3. Configure the plugin in **Lumen Assistant**.
 
-The folder name can remain `ask-me-ai`; the public plugin name shown in WordPress is **Lumen Assistant**.
+The folder name should be `lumen-assistant` for WordPress.org packaging.
 
 ## Shortcode
 
@@ -80,6 +80,18 @@ In the admin settings, enable **Only show where shortcode is used**.
 - Rate limit: `20` questions per `300` seconds per visitor IP
 
 You can use other OpenRouter-compatible chat and embedding models if your account has access to them.
+
+## Third-Party Service Disclosure
+
+Lumen Assistant connects to OpenRouter only after the site administrator enters an API key and model configuration. OpenRouter is used to generate embeddings for uploaded document chunks and to generate answers from retrieved document context.
+
+Data sent to OpenRouter can include extracted text snippets from uploaded PDFs, visitor questions, configured model names, and normal API request metadata. The OpenRouter API key is stored on the WordPress server and is not exposed to visitors.
+
+OpenRouter links:
+
+- Website: https://openrouter.ai/
+- Terms: https://openrouter.ai/terms
+- Privacy: https://openrouter.ai/privacy
 
 ## How RAG Works
 
@@ -156,7 +168,7 @@ add_filter( 'ask_me_ai_pdf_text', function ( $pages, $file_path ) {
 
 Main files:
 
-- `ask-me-ai.php` - plugin bootstrap and plugin metadata.
+- `lumen-assistant.php` - plugin bootstrap and plugin metadata.
 - `includes/Admin/Admin_Page.php` - WordPress admin dashboard.
 - `includes/Core/Database.php` - custom table creation.
 - `includes/Core/Rest_Controller.php` - public REST endpoints.
