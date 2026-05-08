@@ -9,6 +9,8 @@
  * Requires at least: 6.2
  * Requires PHP: 7.4
  * Donate link: https://buymemomo.com/vivek
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: ask-me-ai
  *
  * @package AskMeAI
