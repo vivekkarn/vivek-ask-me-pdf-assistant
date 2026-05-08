@@ -14,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Custom plugin tables are required for local document chunks and embeddings.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
 class Document_Indexer {
 	/**
 	 * Upload and index a PDF.
@@ -288,14 +291,24 @@ class Document_Indexer {
 	 * @param string $target_dir Upload directory.
 	 */
 	private function protect_upload_dir( $target_dir ) {
+		global $wp_filesystem;
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		if ( ! WP_Filesystem() || ! $wp_filesystem ) {
+			return;
+		}
+
 		$index = trailingslashit( $target_dir ) . 'index.php';
 		if ( ! file_exists( $index ) ) {
-			file_put_contents( $index, "<?php\n// Silence is golden.\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			$wp_filesystem->put_contents( $index, "<?php\n// Silence is golden.\n", FS_CHMOD_FILE );
 		}
 
 		$htaccess = trailingslashit( $target_dir ) . '.htaccess';
 		if ( ! file_exists( $htaccess ) ) {
-			file_put_contents( $htaccess, "Deny from all\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			$wp_filesystem->put_contents( $htaccess, "Deny from all\n", FS_CHMOD_FILE );
 		}
 	}
 }

@@ -41,7 +41,7 @@ class Pdf_Text_Extractor {
 			}
 		}
 
-		$raw = file_get_contents( $file_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$raw = $this->read_file( $file_path );
 		if ( false === $raw ) {
 			return array();
 		}
@@ -154,5 +154,25 @@ class Pdf_Text_Extractor {
 		$text = preg_replace( '/\n{3,}/', "\n\n", $text );
 
 		return trim( $text );
+	}
+
+	/**
+	 * Read a local file through the WordPress filesystem API when available.
+	 *
+	 * @param string $file_path File path.
+	 * @return string|false
+	 */
+	private function read_file( $file_path ) {
+		global $wp_filesystem;
+
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		if ( WP_Filesystem() && $wp_filesystem ) {
+			return $wp_filesystem->get_contents( $file_path );
+		}
+
+		return false;
 	}
 }
