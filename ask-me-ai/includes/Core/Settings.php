@@ -23,11 +23,11 @@ class Settings {
 		return array(
 			'enabled'                => '1',
 			'shortcode_only'         => '0',
-			'assistant_name'         => 'AskMe AI Docs',
+			'assistant_name'         => 'Ask Lumen',
 			'welcome_message'        => 'Hi, I can help you find answers from the documents on this site.',
 			'widget_color'           => '#0f766e',
 			'position'               => 'bottom-right',
-			'placeholder'            => 'Ask about the documents...',
+			'placeholder'            => 'Ask Lumen...',
 			'suggested_questions'    => "What is covered in these documents?\nCan you summarize the key points?\nWhat should I know before getting started?",
 			'powered_by'             => '1',
 			'openrouter_api_key'     => '',

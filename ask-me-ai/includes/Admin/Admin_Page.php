@@ -33,8 +33,8 @@ class Admin_Page {
 	 */
 	public function menu() {
 		add_menu_page(
-			__( 'AskMe AI Docs', 'ask-me-ai' ),
-			__( 'AskMe AI Docs', 'ask-me-ai' ),
+			__( 'Lumen Assistant', 'ask-me-ai' ),
+			__( 'Lumen Assistant', 'ask-me-ai' ),
 			'manage_options',
 			'ask-me-ai',
 			array( $this, 'render' ),
@@ -130,8 +130,8 @@ class Admin_Page {
 		<div class="wrap ask-me-ai-admin">
 			<div class="ask-me-ai-admin__hero">
 				<div>
-					<h1><?php esc_html_e( 'AskMe AI Docs', 'ask-me-ai' ); ?></h1>
-					<p><?php esc_html_e( 'An Intercom-inspired document assistant for WordPress. Upload PDFs, index them locally, and let visitors ask grounded questions from a polished floating support widget.', 'ask-me-ai' ); ?></p>
+					<h1><?php esc_html_e( 'Lumen Assistant', 'ask-me-ai' ); ?></h1>
+					<p><?php esc_html_e( 'A polished document support assistant for WordPress. Upload PDFs, index them locally, and let visitors ask Lumen grounded questions from a floating support widget.', 'ask-me-ai' ); ?></p>
 				</div>
 				<a class="ask-me-ai-admin__donate" href="https://buymemomo.com/vivek" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Donate', 'ask-me-ai' ); ?></a>
 			</div>
@@ -216,7 +216,7 @@ class Admin_Page {
 									</tr>
 									<tr>
 										<th scope="row"><?php esc_html_e( 'Branding', 'ask-me-ai' ); ?></th>
-										<td><label><input type="checkbox" name="ask_me_ai[powered_by]" value="1" <?php checked( '1', $settings['powered_by'] ); ?>> <?php esc_html_e( 'Show Powered by AskMe AI Docs', 'ask-me-ai' ); ?></label></td>
+										<td><label><input type="checkbox" name="ask_me_ai[powered_by]" value="1" <?php checked( '1', $settings['powered_by'] ); ?>> <?php esc_html_e( 'Show Powered by Lumen Assistant', 'ask-me-ai' ); ?></label></td>
 									</tr>
 								</table>
 							</div>

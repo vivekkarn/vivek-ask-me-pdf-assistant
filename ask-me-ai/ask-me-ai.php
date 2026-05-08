@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: AskMe AI Docs
- * Plugin URI: https://github.com/vivekkarn/askme-ai-docs
- * Description: Intercom-inspired floating AI support assistant that answers from uploaded PDF documents using RAG and OpenRouter.
+ * Plugin Name: Lumen Assistant
+ * Plugin URI: https://github.com/vivekkarn/lumen-assistant
+ * Description: Intercom-inspired floating document support assistant that answers from uploaded PDF documents using RAG and OpenRouter.
  * Version: 1.0.0
  * Author: Vivek
  * Author URI: https://buymemomo.com/vivek

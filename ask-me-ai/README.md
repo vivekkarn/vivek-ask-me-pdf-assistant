@@ -1,6 +1,6 @@
-# AskMe AI Docs
+# Lumen Assistant
 
-AskMe AI Docs is a WordPress plugin that adds a polished Intercom-inspired floating website assistant. Site owners upload PDF documents, the plugin indexes their text into local database chunks with embeddings, and visitors can ask questions through a compact support-chat widget.
+Lumen Assistant is a WordPress plugin that adds a polished Intercom-inspired floating website assistant. Site owners upload PDF documents, the plugin indexes their text into local database chunks with embeddings, and visitors can ask Lumen questions through a compact support-chat widget.
 
 The assistant is designed to answer only from uploaded documents. If retrieved PDF context does not contain the answer, it is instructed to say it does not know based on the available documents.
 
@@ -20,8 +20,8 @@ The assistant is designed to answer only from uploaded documents. If retrieved P
 ## Installation
 
 1. Copy the `ask-me-ai` folder into `wp-content/plugins/`.
-2. Activate **Ask Me AI** in the WordPress Plugins screen.
-3. Open **Ask Me AI** in the WordPress admin menu.
+2. Activate **Lumen Assistant** in the WordPress Plugins screen.
+3. Open **Lumen Assistant** in the WordPress admin menu.
 4. Enter your OpenRouter API key.
 5. Upload one or more PDF files and wait for each document to show `Ready`.
 6. Enable the widget globally or enable shortcode-only mode and place `[ask_me_ai_widget]` on selected pages.
@@ -32,7 +32,7 @@ The assistant is designed to answer only from uploaded documents. If retrieved P
 - Chat model: `openai/gpt-4o-mini`
 - Embedding model: `openai/text-embedding-3-small`
 - Embedding endpoint: `https://openrouter.ai/api/v1/embeddings`
-- Assistant name: `AskMe AI Docs`
+- Assistant name: `Ask Lumen`
 - Context chunks: `5`
 - Rate limit: `20` questions per `300` seconds per visitor IP.
 
