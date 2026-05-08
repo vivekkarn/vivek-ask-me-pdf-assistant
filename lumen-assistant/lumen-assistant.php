@@ -1,20 +1,18 @@
 <?php
-/**
- * Plugin Name: Lumen Assistant
- * Plugin URI: https://github.com/vivekkarn/lumen-assistant
- * Description: Intercom-inspired floating document support assistant that answers from uploaded PDF documents using RAG and OpenRouter.
- * Version: 1.0.0
- * Author: Vivek
- * Author URI: https://buymemomo.com/vivek
- * Requires at least: 6.2
- * Requires PHP: 7.4
- * Donate link: https://buymemomo.com/vivek
- * License: GPLv2 or later
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: lumen-assistant
- *
- * @package AskMeAI
- */
+/*
+Plugin Name: Lumen Assistant
+Plugin URI: https://github.com/vivekkarn/lumen-assistant
+Description: Intercom-inspired floating document support assistant that answers from uploaded PDF documents using RAG and OpenRouter.
+Version: 1.0.0
+Author: Vivek
+Author URI: https://buymemomo.com/vivek
+Requires at least: 6.2
+Requires PHP: 7.4
+Donate link: https://buymemomo.com/vivek
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: lumen-assistant
+*/
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
