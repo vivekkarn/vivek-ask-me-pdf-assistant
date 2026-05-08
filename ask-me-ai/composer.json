@@ -1,0 +1,14 @@
+{
+	"name": "askme-ai-docs/wordpress-plugin",
+	"description": "Intercom-inspired WordPress RAG assistant widget over uploaded PDFs.",
+	"type": "wordpress-plugin",
+	"require": {
+		"php": ">=7.4",
+		"smalot/pdfparser": "^2.10"
+	},
+	"autoload": {
+		"psr-4": {
+			"AskMeAI\\": "includes/"
+		}
+	}
+}
