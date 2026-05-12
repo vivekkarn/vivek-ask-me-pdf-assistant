@@ -41,15 +41,15 @@
 		const position = config.position === 'bottom-left' ? 'ask-me-ai--left' : 'ask-me-ai--right';
 		root.innerHTML = `
 			<div class="ask-me-ai ${position} ${state.open ? 'ask-me-ai--open' : ''}" style="--ask-me-ai-color: ${escapeHtml(config.widgetColor || '#1f7aec')}">
-				<button class="ask-me-ai__launcher" type="button" aria-label="${escapeHtml(config.assistantName || 'Ask Lumen')}">
+				<button class="ask-me-ai__launcher" type="button" aria-label="${escapeHtml(config.assistantName || 'Ask Me AI')}">
 					<span class="ask-me-ai__launcher-icon" aria-hidden="true"></span>
 				</button>
-				<section class="ask-me-ai__panel" aria-live="polite" aria-label="${escapeHtml(config.assistantName || 'Ask Lumen')}">
+				<section class="ask-me-ai__panel" aria-live="polite" aria-label="${escapeHtml(config.assistantName || 'Ask Me AI')}">
 					<header class="ask-me-ai__header">
 						<div class="ask-me-ai__identity">
-							<span class="ask-me-ai__avatar" aria-hidden="true">L</span>
+							<span class="ask-me-ai__avatar" aria-hidden="true">?</span>
 							<div>
-								<strong>${escapeHtml(config.assistantName || 'Ask Lumen')}</strong>
+								<strong>${escapeHtml(config.assistantName || 'Ask Me AI')}</strong>
 								<span>Usually replies instantly</span>
 							</div>
 						</div>
@@ -61,10 +61,9 @@
 					</div>
 					${renderSuggestions()}
 					<form class="ask-me-ai__composer">
-						<input class="ask-me-ai__input" name="message" autocomplete="off" placeholder="${escapeHtml(config.placeholder || 'Ask Lumen...')}" ${state.loading ? 'disabled' : ''} />
+						<input class="ask-me-ai__input" name="message" autocomplete="off" placeholder="${escapeHtml(config.placeholder || 'Ask Me AI...')}" ${state.loading ? 'disabled' : ''} />
 						<button class="ask-me-ai__send" type="submit" ${state.loading ? 'disabled' : ''} aria-label="Send">&rarr;</button>
 					</form>
-					${config.poweredBy ? '<div class="ask-me-ai__brand">Powered by Lumen Assistant</div>' : ''}
 				</section>
 			</div>
 		`;

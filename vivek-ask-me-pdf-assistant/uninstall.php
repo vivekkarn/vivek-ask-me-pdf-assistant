@@ -30,7 +30,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	delete_option( 'ask_me_ai_db_version' );
 
 	$upload_dir = wp_upload_dir();
-	$target_dir = trailingslashit( $upload_dir['basedir'] ) . 'lumen-assistant-docs';
+	$target_dir = trailingslashit( $upload_dir['basedir'] ) . 'vivek-ask-me-pdf-assistant-docs';
 
 	if ( is_dir( $target_dir ) ) {
 		$files = glob( trailingslashit( $target_dir ) . '*' );

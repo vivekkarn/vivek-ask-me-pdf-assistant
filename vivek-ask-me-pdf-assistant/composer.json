@@ -1,5 +1,5 @@
 {
-	"name": "lumen-assistant/wordpress-plugin",
+	"name": "vivek-ask-me-pdf-assistant/wordpress-plugin",
 	"description": "Intercom-inspired WordPress document assistant widget over uploaded PDFs.",
 	"type": "wordpress-plugin",
 	"require": {

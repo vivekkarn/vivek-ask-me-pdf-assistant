@@ -26,7 +26,7 @@ class Document_Indexer {
 	 */
 	public function upload_and_index( $file ) {
 		if ( empty( $file['tmp_name'] ) || empty( $file['name'] ) ) {
-			return new \WP_Error( 'missing_file', __( 'No PDF file was uploaded.', 'lumen-assistant' ) );
+			return new \WP_Error( 'missing_file', __( 'No PDF file was uploaded.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
@@ -35,7 +35,7 @@ class Document_Indexer {
 
 		$type = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'] );
 		if ( 'pdf' !== ( $type['ext'] ?? '' ) || 'application/pdf' !== ( $type['type'] ?? '' ) ) {
-			return new \WP_Error( 'invalid_file_type', __( 'Please upload a valid PDF file.', 'lumen-assistant' ) );
+			return new \WP_Error( 'invalid_file_type', __( 'Please upload a valid PDF file.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$filename = sanitize_file_name( $file['name'] );
@@ -52,7 +52,7 @@ class Document_Indexer {
 		remove_filter( 'upload_dir', array( $this, 'upload_dir' ) );
 
 		if ( ! empty( $upload['error'] ) || empty( $upload['file'] ) ) {
-			return new \WP_Error( 'upload_failed', sanitize_text_field( $upload['error'] ?? __( 'Could not save the uploaded PDF.', 'lumen-assistant' ) ) );
+			return new \WP_Error( 'upload_failed', sanitize_text_field( $upload['error'] ?? __( 'Could not save the uploaded PDF.', 'vivek-ask-me-pdf-assistant' ) ) );
 		}
 
 		$this->protect_upload_dir( dirname( $upload['file'] ) );
@@ -67,7 +67,7 @@ class Document_Indexer {
 	 * @return array
 	 */
 	public function upload_dir( $dirs ) {
-		$subdir = '/lumen-assistant-docs';
+		$subdir = '/vivek-ask-me-pdf-assistant-docs';
 
 		$dirs['subdir'] = $subdir;
 		$dirs['path']   = $dirs['basedir'] . $subdir;
@@ -103,7 +103,7 @@ class Document_Indexer {
 		);
 
 		if ( false === $inserted ) {
-			return new \WP_Error( 'document_insert_failed', __( 'Could not create document record.', 'lumen-assistant' ) );
+			return new \WP_Error( 'document_insert_failed', __( 'Could not create document record.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$document_id = (int) $wpdb->insert_id;
@@ -132,7 +132,7 @@ class Document_Indexer {
 		);
 
 		if ( ! $document ) {
-			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'lumen-assistant' ) );
+			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$this->set_status( $document_id, 'indexing', '' );
@@ -140,14 +140,14 @@ class Document_Indexer {
 
 		$pages = ( new Pdf_Text_Extractor() )->extract( $document['file_path'] );
 		if ( empty( $pages ) ) {
-			$this->set_status( $document_id, 'failed', __( 'No text could be extracted from this PDF.', 'lumen-assistant' ) );
-			return new \WP_Error( 'no_pdf_text', __( 'No text could be extracted from this PDF.', 'lumen-assistant' ) );
+			$this->set_status( $document_id, 'failed', __( 'No text could be extracted from this PDF.', 'vivek-ask-me-pdf-assistant' ) );
+			return new \WP_Error( 'no_pdf_text', __( 'No text could be extracted from this PDF.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$chunks = ( new Text_Chunker() )->chunk_pages( $pages );
 		if ( empty( $chunks ) ) {
-			$this->set_status( $document_id, 'failed', __( 'No searchable text chunks were created.', 'lumen-assistant' ) );
-			return new \WP_Error( 'no_chunks', __( 'No searchable text chunks were created.', 'lumen-assistant' ) );
+			$this->set_status( $document_id, 'failed', __( 'No searchable text chunks were created.', 'vivek-ask-me-pdf-assistant' ) );
+			return new \WP_Error( 'no_chunks', __( 'No searchable text chunks were created.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$client          = new OpenRouter_Client();
@@ -225,7 +225,7 @@ class Document_Indexer {
 		);
 
 		if ( ! $document ) {
-			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'lumen-assistant' ) );
+			return new \WP_Error( 'document_not_found', __( 'Document not found.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$this->delete_document_chunks( $document_id );

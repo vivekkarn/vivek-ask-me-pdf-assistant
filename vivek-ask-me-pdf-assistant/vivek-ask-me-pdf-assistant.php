@@ -1,17 +1,14 @@
 <?php
 /*
-Plugin Name: Lumen Assistant
-Plugin URI: https://github.com/vivekkarn/lumen-assistant
+Plugin Name: Vivek Ask Me PDF Assistant
 Description: Intercom-inspired floating document support assistant that answers from uploaded PDF documents using RAG and OpenRouter.
 Version: 1.0.0
 Author: Vivek
-Author URI: https://buymemomo.com/vivek
 Requires at least: 6.2
 Requires PHP: 7.4
-Donate link: https://buymemomo.com/vivek
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: lumen-assistant
+Text Domain: vivek-ask-me-pdf-assistant
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,13 +41,11 @@ add_action(
 add_filter(
 	'plugin_action_links_' . plugin_basename( __FILE__ ),
 	static function ( $links ) {
-		$settings_url = admin_url( 'admin.php?page=lumen-assistant' );
-		$donate_url   = 'https://buymemomo.com/vivek';
+		$settings_url = admin_url( 'admin.php?page=vivek-ask-me-pdf-assistant' );
 
 		array_unshift(
 			$links,
-			'<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'lumen-assistant' ) . '</a>',
-			'<a href="' . esc_url( $donate_url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Donate', 'lumen-assistant' ) . '</a>'
+			'<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'vivek-ask-me-pdf-assistant' ) . '</a>'
 		);
 
 		return $links;

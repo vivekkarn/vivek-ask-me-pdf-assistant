@@ -27,7 +27,7 @@ class OpenRouter_Client {
 		$api_key  = $settings['openrouter_api_key'];
 
 		if ( empty( $api_key ) ) {
-			return new \WP_Error( 'missing_api_key', __( 'OpenRouter API key is not configured.', 'lumen-assistant' ) );
+			return new \WP_Error( 'missing_api_key', __( 'OpenRouter API key is not configured.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$response = wp_remote_post(
@@ -52,12 +52,12 @@ class OpenRouter_Client {
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( $code < 200 || $code >= 300 ) {
-			return new \WP_Error( 'embedding_failed', $this->extract_error_message( $body, __( 'Embedding request failed.', 'lumen-assistant' ) ) );
+			return new \WP_Error( 'embedding_failed', $this->extract_error_message( $body, __( 'Embedding request failed.', 'vivek-ask-me-pdf-assistant' ) ) );
 		}
 
 		$vector = $body['data'][0]['embedding'] ?? null;
 		if ( ! is_array( $vector ) ) {
-			return new \WP_Error( 'invalid_embedding_response', __( 'Embedding response did not include a vector.', 'lumen-assistant' ) );
+			return new \WP_Error( 'invalid_embedding_response', __( 'Embedding response did not include a vector.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		return array_map( 'floatval', $vector );
@@ -74,7 +74,7 @@ class OpenRouter_Client {
 	public function chat( $messages, $model, $temperature = 0.2 ) {
 		$api_key = Settings::get_value( 'openrouter_api_key', '' );
 		if ( empty( $api_key ) ) {
-			return new \WP_Error( 'missing_api_key', __( 'OpenRouter API key is not configured.', 'lumen-assistant' ) );
+			return new \WP_Error( 'missing_api_key', __( 'OpenRouter API key is not configured.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$response = wp_remote_post(
@@ -100,12 +100,12 @@ class OpenRouter_Client {
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( $code < 200 || $code >= 300 ) {
-			return new \WP_Error( 'chat_failed', $this->extract_error_message( $body, __( 'Chat completion request failed.', 'lumen-assistant' ) ) );
+			return new \WP_Error( 'chat_failed', $this->extract_error_message( $body, __( 'Chat completion request failed.', 'vivek-ask-me-pdf-assistant' ) ) );
 		}
 
 		$content = $body['choices'][0]['message']['content'] ?? '';
 		if ( '' === trim( $content ) ) {
-			return new \WP_Error( 'empty_chat_response', __( 'The AI provider returned an empty response.', 'lumen-assistant' ) );
+			return new \WP_Error( 'empty_chat_response', __( 'The AI provider returned an empty response.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		return trim( wp_kses_post( $content ) );

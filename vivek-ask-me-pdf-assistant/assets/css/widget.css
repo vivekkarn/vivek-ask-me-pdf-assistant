@@ -299,15 +299,6 @@
 	opacity: 0.7;
 }
 
-.ask-me-ai__brand {
-	background: #fff;
-	border-top: 1px solid var(--ask-me-ai-border);
-	color: var(--ask-me-ai-muted);
-	font-size: 11px;
-	padding: 7px 12px;
-	text-align: center;
-}
-
 .ask-me-ai__sources {
 	border-top: 1px solid rgba(104, 117, 138, 0.18);
 	margin-top: 9px;

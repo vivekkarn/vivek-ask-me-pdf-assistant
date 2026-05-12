@@ -28,7 +28,7 @@ class Chat_Service {
 	public function answer( $question, $session_id = '' ) {
 		$question = trim( wp_strip_all_tags( $question ) );
 		if ( strlen( $question ) < 2 ) {
-			return new \WP_Error( 'invalid_question', __( 'Please enter a question.', 'lumen-assistant' ) );
+			return new \WP_Error( 'invalid_question', __( 'Please enter a question.', 'vivek-ask-me-pdf-assistant' ) );
 		}
 
 		$settings = Settings::get();
@@ -40,7 +40,7 @@ class Chat_Service {
 
 		if ( empty( $chunks ) ) {
 			return array(
-				'answer'  => __( 'I do not know based on the available documents.', 'lumen-assistant' ),
+				'answer'  => __( 'I do not know based on the available documents.', 'vivek-ask-me-pdf-assistant' ),
 				'sources' => array(),
 			);
 		}

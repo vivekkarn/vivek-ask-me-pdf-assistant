@@ -26,7 +26,7 @@ class Rate_Limiter {
 		$window   = absint( $settings['rate_limit_window'] );
 
 		if ( $count >= $limit ) {
-			return new \WP_Error( 'rate_limited', __( 'Too many questions. Please try again later.', 'lumen-assistant' ), array( 'status' => 429 ) );
+			return new \WP_Error( 'rate_limited', __( 'Too many questions. Please try again later.', 'vivek-ask-me-pdf-assistant' ), array( 'status' => 429 ) );
 		}
 
 		set_transient( $key, $count + 1, $window );

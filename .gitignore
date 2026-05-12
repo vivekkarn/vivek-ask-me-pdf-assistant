@@ -4,4 +4,4 @@ Thumbs.db
 *.zip
 node_modules/
 vendor/
-!lumen-assistant/vendor/index.php
+!vivek-ask-me-pdf-assistant/vendor/index.php

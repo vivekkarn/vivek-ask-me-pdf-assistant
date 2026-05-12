@@ -23,13 +23,12 @@ class Settings {
 		return array(
 			'enabled'                => '1',
 			'shortcode_only'         => '0',
-			'assistant_name'         => 'Ask Lumen',
+			'assistant_name'         => 'Ask Me AI',
 			'welcome_message'        => 'Hi, I can help you find answers from the documents on this site.',
 			'widget_color'           => '#0f766e',
 			'position'               => 'bottom-right',
-			'placeholder'            => 'Ask Lumen...',
+			'placeholder'            => 'Ask Me AI...',
 			'suggested_questions'    => "What is covered in these documents?\nCan you summarize the key points?\nWhat should I know before getting started?",
-			'powered_by'             => '1',
 			'openrouter_api_key'     => '',
 			'chat_model'             => 'openai/gpt-4o-mini',
 			'embedding_model'        => 'openai/text-embedding-3-small',
@@ -94,7 +93,6 @@ class Settings {
 		$clean['position']               = in_array( $input['position'] ?? '', array( 'bottom-right', 'bottom-left' ), true ) ? $input['position'] : 'bottom-right';
 		$clean['placeholder']            = sanitize_text_field( $input['placeholder'] ?? $current['placeholder'] );
 		$clean['suggested_questions']    = sanitize_textarea_field( $input['suggested_questions'] ?? $current['suggested_questions'] );
-		$clean['powered_by']             = empty( $input['powered_by'] ) ? '0' : '1';
 		$incoming_api_key                = sanitize_text_field( $input['openrouter_api_key'] ?? '' );
 		$clean['openrouter_api_key']     = '' !== $incoming_api_key ? $incoming_api_key : $current['openrouter_api_key'];
 		$clean['chat_model']             = sanitize_text_field( $input['chat_model'] ?? $current['chat_model'] );

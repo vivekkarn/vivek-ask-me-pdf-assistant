@@ -86,7 +86,6 @@ class Widget {
 			'position'           => $settings['position'],
 			'placeholder'        => $settings['placeholder'],
 			'suggestedQuestions' => Settings::suggested_questions(),
-			'poweredBy'          => '1' === $settings['powered_by'],
 			'enabled'            => '1' === $settings['enabled'],
 		);
 	}
