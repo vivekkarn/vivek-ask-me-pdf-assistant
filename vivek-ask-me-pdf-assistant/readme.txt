@@ -4,7 +4,7 @@ Tags: assistant, ai, chatbot, pdf, openrouter
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,10 +79,16 @@ Not directly. Scanned image-only PDFs need OCR before upload. Text-based PDFs wo
 
 == Changelog ==
 
+= 1.0.1 =
+* Updated plugin metadata for WordPress.org review.
+
 = 1.0.0 =
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Metadata update for WordPress.org review.
 
 = 1.0.0 =
 Initial release.
