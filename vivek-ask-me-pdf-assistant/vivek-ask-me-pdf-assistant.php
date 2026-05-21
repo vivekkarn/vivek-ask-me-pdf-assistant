@@ -1,15 +1,18 @@
 <?php
-/*
-Plugin Name: Vivek Ask Me PDF Assistant
-Description: Intercom-inspired floating document support assistant that answers from uploaded PDF documents using RAG and OpenRouter.
-Version: 1.0.0
-Author: Vivek
-Requires at least: 6.2
-Requires PHP: 7.4
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: vivek-ask-me-pdf-assistant
-*/
+/**
+ * Plugin Name: Vivek Ask Me PDF Assistant
+ * Description: Intercom-inspired floating document support assistant that answers from uploaded PDF documents using RAG and OpenRouter.
+ * Version: 1.0.0
+ * Author: Vivek
+ * Requires at least: 6.2
+ * Tested up to: 7.0
+ * Requires PHP: 7.4
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: vivek-ask-me-pdf-assistant
+ *
+ * @package AskMeAI
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
